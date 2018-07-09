@@ -45,9 +45,9 @@ $(function() {
 
         // Test 05 : Test if the menu changes visibility when the menu icon is clicked
         it('changes visability when the menu icon is clicked', function() {
-          jQuery('.menu-icon-link')[0].click();
+          $('.menu-icon-link')[0].click();
           expect(body.hasClass('menu-hidden')).toBe(false);
-          jQuery('.menu-icon-link')[0].click();
+          $('.menu-icon-link')[0].click();
           expect(body.hasClass('menu-hidden')).toBe(true);
         });
     });
@@ -64,29 +64,29 @@ $(function() {
         });
 
         it('are loaded properly', function() {
-          entries = $('.entry');
+          entries = $('.feed .entry');
           expect(entries.length).toBeGreaterThan(0);
         });
     });
 
 
     describe('New Feed Selection', function() {
-        var entriesOne;
-        var entriesTwo;
+        var feedOne;
+        var feedTwo;
 
         // Test 07 : Test if the content changes after a new feed is loaded
         beforeEach(function(done) {
           loadFeed(0, function() {
-            entriesOne = $('.entry');
-            done();
+            feedOne = $('.feed').html();
+            loadFeed(1, function() {
+              feedTwo = $('.feed').html();
+              done();
+            });
           });
         });
 
         it('changes the body content', function() {
-          loadFeed(1, function() {
-            entriesTwo = $('.entry');
-          });
-          expect(entriesOne).not.toEqual(entriesTwo);
+          expect(feedOne).not.toEqual(feedTwo);
         });
     });
 }());
